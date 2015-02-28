@@ -6,7 +6,7 @@
 /*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/25 14:05:47 by mbryan            #+#    #+#             */
-/*   Updated: 2015/02/28 16:54:30 by ncolliau         ###   ########.fr       */
+/*   Updated: 2015/02/28 17:17:38 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,20 @@ t_case	**add_random_num(t_case **map)
 	return (map);
 }
 
+int		win_value(void)
+{
+	int		nb;
+
+	if (WIN_VALUE < 2)
+		return (2048);
+	nb = 2;
+	while (nb < WIN_VALUE)
+		nb *= 2;
+	if (nb != WIN_VALUE)
+		return (2048);
+	return (WIN_VALUE);
+}
+
 t_case	**reset_fusion(t_case **map)
 {
 	int		i;
@@ -71,7 +85,7 @@ t_case	**reset_fusion(t_case **map)
 		{
 			if (map[i][j].val == 0)
 				verif = 1;
-			if (map[i][j].val >= WIN_VALUE)				
+			if (map[i][j].val >= win_value())				
 				mvprintw(lines / 2 + 1, columns / 2 + 1, "You win !");
 			map[i][j].fusion = NO;
 			j++;
@@ -128,11 +142,7 @@ int		main(void)
 	map = init_map();
 	initscr();
 	if (refresh_window(map) == 0)
-	{
-		endwin();
-		ft_putendl_fd("Window too small", 2);
 		return (0);
-	}
 	raw();
 	keypad(stdscr, TRUE);
 	noecho();
