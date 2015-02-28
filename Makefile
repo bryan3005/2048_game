@@ -6,13 +6,13 @@
 #    By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/02/02 11:03:59 by mbryan            #+#    #+#              #
-#    Updated: 2015/02/28 13:54:48 by ncolliau         ###   ########.fr        #
+#    Updated: 2015/02/28 15:49:08 by ncolliau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = game_2048
 
-OBJ_NAMES = main.o tools.o
+OBJ_NAMES = main.o move_left.o move_right.o move_down.o move_up.o tools.o
 
 OBJ = $(addprefix srcs/,$(OBJ_NAMES))
 
