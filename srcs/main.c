@@ -6,41 +6,23 @@
 /*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/25 14:05:47 by mbryan            #+#    #+#             */
-/*   Updated: 2015/02/28 17:17:38 by ncolliau         ###   ########.fr       */
+/*   Updated: 2015/02/28 20:11:34 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game_2048.h"
 
-int		refresh_window(t_case **map)
+static int		rand_a_b(int a, int b)
 {
-	int lines;
-	int columns;
+	int		ret;
 
-	getmaxyx(stdscr, lines, columns);
-	if (lines < 20 || columns < 40)
-	{
-		endwin();
-		ft_putendl_fd("Window too small", 2);
-		return (0);
-	}
-	mvhline(0, 0, '-', columns);
-	mvvline(0, 0, '+', lines);
-	mvvline(0, columns / 4, '+', lines);
-	mvvline(0, (2 * columns) / 4, '+', lines);
-	mvvline(0, (3 * columns) / 4, '+', lines);
-	mvvline(0, columns - 1, '+', lines);
-	mvhline(lines / 4, 0, '-', columns);
-	mvhline((2 * lines) / 4, 0, '-', columns);
-	mvhline((3 * lines) / 4, 0, '-', columns);
-	mvhline(lines - 1, 0, '-', columns);
-	print_map(lines, columns, map);
-    refresh();
-	curs_set(0);
-	return (1);
+	ret = rand();
+	ret = ret % (b - a);
+	ret += a;
+	return (ret);
 }
 
-t_case	**add_random_num(t_case **map)
+static t_case	**add_random_num(t_case **map)
 {
 	int		pos;
 	int		new_num;
@@ -53,61 +35,39 @@ t_case	**add_random_num(t_case **map)
 	return (map);
 }
 
-int		win_value(void)
+static t_case	**init_map(void)
 {
-	int		nb;
-
-	if (WIN_VALUE < 2)
-		return (2048);
-	nb = 2;
-	while (nb < WIN_VALUE)
-		nb *= 2;
-	if (nb != WIN_VALUE)
-		return (2048);
-	return (WIN_VALUE);
-}
-
-t_case	**reset_fusion(t_case **map)
-{
+	t_case	**map;
 	int		i;
 	int		j;
-	int		verif;
-	int		lines;
-	int		columns;
+	int		pos;
 
-	verif = 0;
+	map = (t_case **)malloc(5 * sizeof(t_case *));
+	map[4] = NULL;
 	i = 0;
-	getmaxyx(stdscr, lines, columns);
-	while (map[i])
+	while (i != 4)
 	{
+		map[i] = (t_case *)malloc(4 * sizeof(t_case));
 		j = 0;
 		while (j != 4)
 		{
-			if (map[i][j].val == 0)
-				verif = 1;
-			if (map[i][j].val >= win_value())				
-				mvprintw(lines / 2 + 1, columns / 2 + 1, "You win !");
+			map[i][j].val = 0;
 			map[i][j].fusion = NO;
 			j++;
 		}
 		i++;
 	}
-	if (verif == 0)
-	{
-		endwin();
-		ft_putendl("You loose !");
-		return (NULL);
-	}
+	srand(time(NULL));
+	pos = rand_a_b(0, 16);
+	map[pos / 4][pos % 4].val = 2;
+	map = add_random_num(map);
 	return (map);
 }
 
-int		key_handle(int key, t_case **map)
+static int		key_handle(int key, t_case **map)
 {
 	if (key == 260 || key == 261 || key == 258 || key == 259)
 	{
-		endwin();
-		refresh();
-		clear();
 		if (key == 260)
 			map = move_left(map);
 		if (key == 261)
@@ -116,32 +76,31 @@ int		key_handle(int key, t_case **map)
 			map = move_down(map);
 		if (key == 259)
 			map = move_up(map);
-		map = reset_fusion(map);
+		map = check_win_loss(map);
 		if (map == NULL)
 			return (0);
 		map = add_random_num(map);
-		if (refresh_window(map) == 0)
-			return (0);
 	}
-	if (key == 410 || key == -1)
+	if (key == 260 || key == 261 || key == 258 || key == 259
+		|| key == 410 || key == -1)
 	{
 		endwin();
 		refresh();
 		clear();
-		if (refresh_window(map) == 0)
+		if (refresh_map(map) == 0)
 			return (0);
 	}
 	return (1);
 }
 
-int		main(void)
+int				main(void)
 {
-	int 	key;
+	int		key;
 	t_case	**map;
 
 	map = init_map();
 	initscr();
-	if (refresh_window(map) == 0)
+	if (refresh_map(map) == 0)
 		return (0);
 	raw();
 	keypad(stdscr, TRUE);

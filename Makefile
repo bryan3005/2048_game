@@ -6,19 +6,20 @@
 #    By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/02/02 11:03:59 by mbryan            #+#    #+#              #
-#    Updated: 2015/02/28 15:49:08 by ncolliau         ###   ########.fr        #
+#    Updated: 2015/02/28 20:14:25 by ncolliau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = game_2048
 
-OBJ_NAMES = main.o move_left.o move_right.o move_down.o move_up.o tools.o
+OBJ_NAMES = main.o move_left.o move_right.o move_down.o move_up.o print_map.o \
+			check_win_loss.o
 
 OBJ = $(addprefix srcs/,$(OBJ_NAMES))
 
 PATH_INCLUDES = includes/
 
-INCLUDES_NAME = libft.h game_2048.h
+INCLUDES_NAME = game_2048.h
 
 LIB = -lncurses
 
@@ -30,14 +31,11 @@ FLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
 
-$(NAME) : $(OBJ) libft/libft.a
-			gcc $(FLAGS) -I $(PATH_INCLUDES) -o $(NAME) $(OBJ) libft/libft.a $(LIB)
+$(NAME) : $(OBJ)
+			gcc $(FLAGS) -I $(PATH_INCLUDES) -o $(NAME) $(OBJ) $(LIB)
 
 $(OBJ): %.o: %.c $(INCLUDES)
-			gcc $(FLAGS) -I $(PATH_INCLUDES) -c $< -o $@ 
-
-libft/libft.a :
-			make -C libft/
+			gcc $(FLAGS) -I $(PATH_INCLUDES) -c $< -o $@
 
 clean :
 			@rm -f $(OBJ)
@@ -45,6 +43,5 @@ clean :
 
 fclean : clean
 			rm -f $(NAME)
-			make -C libft/ fclean
 
 re : fclean all
