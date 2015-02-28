@@ -3,17 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbryan <mbryan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/04 23:13:42 by mbryan            #+#    #+#             */
-/*   Updated: 2014/11/09 12:27:08 by mbryan           ###   ########.fr       */
+/*   Created: 2014/11/04 14:41:41 by ncolliau          #+#    #+#             */
+/*   Updated: 2014/11/22 10:54:49 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char *ft_strcpy(char *dst, const char *src)
+#include "libft.h"
+
+char	*ft_strcpy(char *dst, const char *src)
 {
 	int i;
 
+	if (dst == NULL || src == NULL)
+		return (NULL);
 	i = 0;
 	while (src[i])
 	{

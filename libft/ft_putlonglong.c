@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freetabs.c                                      :+:      :+:    :+:   */
+/*   ft_putlonglong.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbryan <mbryan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/23 19:45:21 by mbryan            #+#    #+#             */
-/*   Updated: 2015/01/26 12:41:20 by mbryan           ###   ########.fr       */
+/*   Created: 2014/12/16 14:33:04 by ncolliau          #+#    #+#             */
+/*   Updated: 2014/12/29 19:57:40 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-void	ft_freetabs(char **ptr)
+void	ft_putlonglong(long long nbr)
 {
-	int i;
-
-	i = 0;
-	if (ptr == NULL)
-		return ;
-	while (ptr[i] != NULL)
+	if (nbr == -9223372036854775807 - 1)
 	{
-		free(ptr[i]);
-		i++;
+		ft_putstr("-9223372036854775808");
+		return ;
 	}
-	free(ptr);
+	if (nbr < 0)
+	{
+		nbr *= -1;
+		ft_putchar('-');
+	}
+	if (nbr >= 10)
+	{
+		ft_putlonglong(nbr / 10);
+		ft_putchar('0' + (nbr % 10));
+	}
+	else
+		ft_putchar('0' + nbr);
 }

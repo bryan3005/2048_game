@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbryan <mbryan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/06 17:05:08 by mbryan            #+#    #+#             */
-/*   Updated: 2015/01/07 09:49:10 by mbryan           ###   ########.fr       */
+/*   Created: 2014/11/13 12:38:44 by ncolliau          #+#    #+#             */
+/*   Updated: 2014/11/13 12:57:09 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_is_space(char c)
+int		ft_isspace(int c)
 {
 	if (c == 32 || (c >= 9 && c <= 13))
 		return (1);

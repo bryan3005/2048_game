@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*   ft_sizesplit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/29 19:08:40 by ncolliau          #+#    #+#             */
-/*   Updated: 2014/12/29 20:02:01 by ncolliau         ###   ########.fr       */
+/*   Created: 2014/11/07 10:08:37 by ncolliau          #+#    #+#             */
+/*   Updated: 2015/02/18 13:08:19 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+char	**ft_sizesplit(char const *s, char c, size_t *size)
 {
-	t_list	*tmp;
+	char	**map;
+	size_t	i;
+	size_t	nb_words;
 
-	if (!alst || !del)
-		return ;
-	while (*alst)
+	map = NULL;
+	i = 0;
+	nb_words = 0;
+	while (s && s[i] && s[i] == c)
+		i++;
+	while (s && s[i] != '\0')
 	{
-		del((*alst)->content, (*alst)->content_size);
-		tmp = *alst;
-		*alst = (*alst)->next;
-		free(tmp);
+		if ((map = ft_realloc_str_tab(map, NULL)) == NULL)
+			return (NULL);
+		map[nb_words] = ft_strcdup(s + i, c);
+		i += ft_strclen(s + i, c);
+		while (s[i] && s[i] == c)
+			i++;
+		nb_words++;
 	}
-	alst = NULL;
+	*size = nb_words;
+	return (map);
 }

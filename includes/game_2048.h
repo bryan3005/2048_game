@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*   game_2048.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/29 19:08:40 by ncolliau          #+#    #+#             */
-/*   Updated: 2014/12/29 20:02:01 by ncolliau         ###   ########.fr       */
+/*   Created: 2015/02/25 13:59:47 by mbryan            #+#    #+#             */
+/*   Updated: 2015/02/28 13:56:11 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GAME_2048_H
+# define GAME_2048_H
 
-void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
-{
-	t_list	*tmp;
+# include "libft.h"
+# include <ncurses.h>
+# include <time.h>
 
-	if (!alst || !del)
-		return ;
-	while (*alst)
-	{
-		del((*alst)->content, (*alst)->content_size);
-		tmp = *alst;
-		*alst = (*alst)->next;
-		free(tmp);
-	}
-	alst = NULL;
-}
+void	print_map(int lines, int columns, int **map);
+int		**init_map(void);
+
+#endif

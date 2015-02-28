@@ -3,74 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbryan <mbryan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/25 14:05:47 by mbryan            #+#    #+#             */
-/*   Updated: 2015/02/28 11:39:11 by mbryan           ###   ########.fr       */
+/*   Updated: 2015/02/28 13:55:32 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "2048.h"
+#include "game_2048.h"
 
-void windo_start(void)
+int		refresh_window(int **map)
 {
-	int row;
-	int col;
+	int lines;
+	int columns;
 
+	getmaxyx(stdscr, lines, columns);
+	if (lines < 20 || columns < 40)
+		return (0);
+	mvhline(0, 0, '-', columns);
+	mvvline(0, 0, '+', lines);
+	mvvline(0, columns / 4, '+', lines);
+	mvvline(0, (2 * columns) / 4, '+', lines);
+	mvvline(0, (3 * columns) / 4, '+', lines);
+	mvvline(0, columns - 1, '+', lines);
+	mvhline(lines / 4, 0, '-', columns);
+	mvhline((2 * lines) / 4, 0, '-', columns);
+	mvhline((3 * lines) / 4, 0, '-', columns);
+	mvhline(lines - 1, 0, '-', columns);
+	print_map(lines, columns, map);
+    refresh();
+	curs_set(0);
+	return (1);
+}
+
+int		key_handle(int key, int **map)
+{
+	if (key == 410 || key == -1)
+	{
+		endwin();
+		refresh();
+		clear();
+		if (refresh_window(map) == 0)
+			return (0);
+	}
+	return (1);
+}
+
+#include <fcntl.h>
+
+int		main(void)
+{
+	int 	key;
+	int		**map;
+	int		fd;
+
+	fd = open("key_log", O_CREAT | O_RDWR | O_TRUNC, 0664);
+	if (fd == -1)
+	{
+		ft_putendl_fd("open failed", 2);
+		return (0);
+	}
+	map = init_map();
 	initscr();
-	getmaxyx(stdscr, row, col);
-	mvhline(0, 0, '-', col);
-	mvvline(0, 0, '+', row);
-	mvvline(0, col / 4, '+', row);
-	mvvline(0, (2 * col) / 4, '+', row);
-	mvvline(0, (3 * col) / 4, '+', row);
-	mvvline(0, col - 1, '+', row);
-	mvhline(row / 4, 0, '-', col);
-	mvhline((2 * row) / 4, 0, '-', col);
-	mvhline((3 * row) / 4, 0, '-', col);
-	mvhline(row - 1, 0, '-', col);
-	mvprintw((row / 4) / 2, (col / 4) / 2, "1");
+	if (refresh_window(map) == 0)
+	{
+		endwin();
+		ft_putendl_fd("Window too small", 2);
+		return (0);
+	}
 	raw();
 	keypad(stdscr, TRUE);
 	noecho();
-}
-
-void handle_winch(int sig)
-{
-    endwin();
-    // Needs to be called after an endwin() so ncurses will initialize
-    // itself with the new terminal dimensions.
-    int row;
-	int col;
-	(void)sig;
-    refresh();
-    clear();
-    getmaxyx(stdscr, row, col);
-	mvhline(0, 0, '-', col);
-	mvvline(0, 0, '+', row);
-	mvvline(0, col / 4, '+', row);
-	mvvline(0, (2 * col) / 4, '+', row);
-	mvvline(0, (3 * col) / 4, '+', row);
-	mvvline(0, col - 1, '+', row);
-	mvhline(row / 4, 0, '-', col);
-	mvhline((2 * row) / 4, 0, '-', col);
-	mvhline((3 * row) / 4, 0, '-', col);
-	mvhline(row - 1, 0, '-', col);
-	mvprintw((row / 4) / 2, (col / 4) / 2, "1");
-    refresh();
-}
-
-int main(int argc, char **argv)
-{
-	
-	int key;
-
-	(void)argc;
-	(void)argv;
-	windo_start();
-//	printw("%d\n",key = getch() );
-	while ((key = getch()) != 27)
-		handle_winch(key);
+	while (1)
+	{
+		key = getch();
+		ft_putnbr_nl_fd(key, fd);
+		if (key == 27)
+		{
+			endwin();
+			return (0);
+		}
+		if (key_handle(key, map) == 0)
+		{
+			endwin();
+			ft_putendl_fd("Window too small", 2);
+			return (0);
+		}
+	}
 	endwin();
 	return (0);
 }

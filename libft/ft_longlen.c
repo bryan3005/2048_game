@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*   ft_longlen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/29 19:08:40 by ncolliau          #+#    #+#             */
-/*   Updated: 2014/12/29 20:02:01 by ncolliau         ###   ########.fr       */
+/*   Created: 2014/12/16 14:49:02 by ncolliau          #+#    #+#             */
+/*   Updated: 2014/12/31 12:40:54 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+size_t	ft_longlen(long long nbr)
 {
-	t_list	*tmp;
+	size_t	length;
 
-	if (!alst || !del)
-		return ;
-	while (*alst)
+	if (nbr == -9223372036854775807 - 1)
+		return (20);
+	length = 0;
+	if (nbr == 0)
+		length = 1;
+	else
 	{
-		del((*alst)->content, (*alst)->content_size);
-		tmp = *alst;
-		*alst = (*alst)->next;
-		free(tmp);
+		while (nbr != 0)
+		{
+			nbr /= 10;
+			length++;
+		}
 	}
-	alst = NULL;
+	return (length);
 }

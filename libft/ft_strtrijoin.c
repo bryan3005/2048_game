@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   2048.h                                             :+:      :+:    :+:   */
+/*   ft_strtrijoin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbryan <mbryan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/02/25 13:59:47 by mbryan            #+#    #+#             */
-/*   Updated: 2015/02/28 10:19:35 by mbryan           ###   ########.fr       */
+/*   Created: 2015/02/22 16:28:56 by ncolliau          #+#    #+#             */
+/*   Updated: 2015/02/22 16:29:09 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WOLF3D_H
-#define WOLF3D_H
-
 #include "libft.h"
-#include "get_next_line.h"
-#include <ncurses.h>
 
-#endif
+char	*ft_strtrijoin(char *s1, char *s2, char *s3)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(s2, s3);
+	s1 = ft_strjoin(s1, tmp);
+	free(tmp);
+	return (s1);
+}

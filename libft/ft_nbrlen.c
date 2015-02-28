@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_intlen.c                                        :+:      :+:    :+:   */
+/*   ft_nbrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbryan <mbryan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/06 17:12:16 by mbryan            #+#    #+#             */
-/*   Updated: 2015/01/07 09:49:05 by mbryan           ###   ########.fr       */
+/*   Created: 2014/12/31 12:41:43 by ncolliau          #+#    #+#             */
+/*   Updated: 2015/01/04 16:11:27 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
-size_t	ft_intlen(int n)
+size_t	ft_nbrlen(int n)
 {
 	size_t	i;
 

@@ -3,22 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbryan <mbryan@student.42.fr>              +#+  +:+       +#+         #
+#    By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/02/02 11:03:59 by mbryan            #+#    #+#              #
-#    Updated: 2015/02/28 10:35:30 by mbryan           ###   ########.fr        #
+#    Updated: 2015/02/28 13:54:48 by ncolliau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = game_2048
 
-OBJ_NAMES = main.o get_next_line.o
+OBJ_NAMES = main.o tools.o
 
 OBJ = $(addprefix srcs/,$(OBJ_NAMES))
 
 PATH_INCLUDES = includes/
 
-INCLUDES_NAME = get_next_line.h libft.h 2048.h
+INCLUDES_NAME = libft.h game_2048.h
 
 LIB = -lncurses
 

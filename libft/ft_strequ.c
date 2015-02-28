@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strequ.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbryan <mbryan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/05 17:50:37 by mbryan            #+#    #+#             */
-/*   Updated: 2015/01/26 13:24:28 by mbryan           ###   ########.fr       */
+/*   Created: 2014/11/05 17:50:34 by ncolliau          #+#    #+#             */
+/*   Updated: 2014/11/22 10:55:04 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#include "libft.h"
 
 int		ft_strequ(char const *s1, char const *s2)
 {

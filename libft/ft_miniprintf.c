@@ -1,39 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_miniprintf.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/04 11:28:43 by ncolliau          #+#    #+#             */
-/*   Updated: 2014/11/22 10:56:36 by ncolliau         ###   ########.fr       */
+/*   Created: 2015/02/22 19:41:41 by ncolliau          #+#    #+#             */
+/*   Updated: 2015/02/23 15:05:17 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdarg.h>
 #include "libft.h"
 
-char	*ft_strnstr(const char *s1, const char *s2, size_t n)
+static void	disp_arg(va_list ap, char c)
 {
-	int		i;
-	char	*ptr;
+	if (c == 'd')
+		ft_putnbr(va_arg(ap, int));
+	if (c == 's')
+		ft_putstr(va_arg(ap, char *));
+	if (c == 'c')
+		ft_putchar(va_arg(ap, int));
+}
 
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
+int			ft_miniprintf(const char *arg, ...)
+{
+	va_list	ap;
+	int		i;
+
 	i = 0;
-	ptr = (char *)s1;
-	if (s2[0] == '\0')
-		return (ptr);
-	while (*ptr && n-- != 0)
+	va_start(ap, arg);
+	while (arg[i])
 	{
-		if (*ptr == s2[0])
+		if (arg[i] == '%')
 		{
-			i = 0;
-			while (ptr[i] == s2[i] && n + 1 - i != 0 && ptr[i] != '\0')
-				i++;
-			if (s2[i] == '\0')
-				return (ptr);
+			if (arg[++i])
+				disp_arg(ap, arg[i]);
 		}
-		ptr++;
+		else
+			ft_putchar(arg[i]);
+		i++;
 	}
-	return (NULL);
+	va_end(ap);
+	return (i);
 }

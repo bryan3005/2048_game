@@ -3,15 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbryan <mbryan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/06 14:14:28 by mbryan            #+#    #+#             */
-/*   Updated: 2015/01/26 09:52:11 by mbryan           ###   ########.fr       */
+/*   Created: 2014/11/06 13:38:36 by ncolliau          #+#    #+#             */
+/*   Updated: 2015/01/08 17:36:44 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
-#include <stdlib.h>
 
 #include "libft.h"
 

@@ -3,36 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbryan <mbryan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/05 16:04:10 by mbryan            #+#    #+#             */
-/*   Updated: 2015/01/05 16:38:16 by mbryan           ###   ########.fr       */
+/*   Created: 2014/12/29 19:13:41 by ncolliau          #+#    #+#             */
+/*   Updated: 2014/12/29 20:02:16 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	t_list	*new_first_one;
+	t_list	*begin_list;
+	t_list	*old;
 	t_list	*new;
-	t_list	*old_one;
 
 	if (!lst || !f)
 		return (NULL);
-	if ((new = (t_list *)malloc(sizeof(t_list))) == NULL)
+	new = (t_list *)malloc(sizeof(t_list));
+	if (new == NULL)
 		return (NULL);
 	new = f(lst);
-	new_first_one = new;
-	while (lst->next != NULL)
+	begin_list = new;
+	while (lst->next)
 	{
-		old_one = new;
+		old = new;
 		lst = lst->next;
-		if ((new = (t_list *)malloc(sizeof(t_list))) == NULL)
+		new = (t_list *)malloc(sizeof(t_list));
+		if (new == NULL)
 			return (NULL);
 		new = f(lst);
-		old_one->next = new;
+		old->next = new;
 	}
-	return (new_first_one);
+	return (begin_list);
 }

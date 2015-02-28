@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdel.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_nl_fd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/29 19:08:40 by ncolliau          #+#    #+#             */
-/*   Updated: 2014/12/29 20:02:01 by ncolliau         ###   ########.fr       */
+/*   Created: 2015/01/08 20:13:47 by ncolliau          #+#    #+#             */
+/*   Updated: 2015/01/09 13:53:42 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
+void	ft_putnbr_nl_fd(int nbr, int fd)
 {
-	t_list	*tmp;
-
-	if (!alst || !del)
-		return ;
-	while (*alst)
-	{
-		del((*alst)->content, (*alst)->content_size);
-		tmp = *alst;
-		*alst = (*alst)->next;
-		free(tmp);
-	}
-	alst = NULL;
+	ft_putnbr_fd(nbr, fd);
+	ft_putchar_fd('\n', fd);
 }
