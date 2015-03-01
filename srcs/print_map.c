@@ -6,7 +6,7 @@
 /*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/28 19:51:44 by ncolliau          #+#    #+#             */
-/*   Updated: 2015/02/28 20:15:59 by ncolliau         ###   ########.fr       */
+/*   Updated: 2015/03/01 16:54:11 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int			refresh_map(t_case **map)
 	int lines;
 	int columns;
 
+	clear();
 	getmaxyx(stdscr, lines, columns);
 	if (lines < 20 || columns < 40)
 	{
@@ -51,18 +52,14 @@ int			refresh_map(t_case **map)
 		write(2, "Window too small\n", 17);
 		return (0);
 	}
-	mvhline(0, 0, '-', columns);
-	mvvline(0, 0, '+', lines);
-	mvvline(0, columns / 4, '+', lines);
-	mvvline(0, (2 * columns) / 4, '+', lines);
-	mvvline(0, (3 * columns) / 4, '+', lines);
-	mvvline(0, columns - 1, '+', lines);
-	mvhline(lines / 4, 0, '-', columns);
-	mvhline((2 * lines) / 4, 0, '-', columns);
-	mvhline((3 * lines) / 4, 0, '-', columns);
-	mvhline(lines - 1, 0, '-', columns);
+	border('|', '|', '-', '-', '+', '+', '+', '+');
+	mvvline(1, columns / 4, '|', lines - 2);
+	mvvline(1, (2 * columns) / 4, '|', lines - 2);
+	mvvline(1, (3 * columns) / 4, '|', lines - 2);
+	mvhline(lines / 4, 1, '-', columns - 2);
+	mvhline((2 * lines) / 4, 1, '-', columns - 2);
+	mvhline((3 * lines) / 4, 1, '-', columns - 2);
 	print_map(lines, columns, map);
 	refresh();
-	curs_set(0);
 	return (1);
 }
