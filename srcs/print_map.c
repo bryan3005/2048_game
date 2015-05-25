@@ -6,7 +6,7 @@
 /*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/28 19:51:44 by ncolliau          #+#    #+#             */
-/*   Updated: 2015/03/01 16:54:11 by ncolliau         ###   ########.fr       */
+/*   Updated: 2015/05/25 13:39:23 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,27 @@ int			refresh_map(t_case **map)
 		write(2, "Window too small\n", 17);
 		return (0);
 	}
-	border('|', '|', '-', '-', '+', '+', '+', '+');
-	mvvline(1, columns / 4, '|', lines - 2);
-	mvvline(1, (2 * columns) / 4, '|', lines - 2);
-	mvvline(1, (3 * columns) / 4, '|', lines - 2);
-	mvhline(lines / 4, 1, '-', columns - 2);
-	mvhline((2 * lines) / 4, 1, '-', columns - 2);
-	mvhline((3 * lines) / 4, 1, '-', columns - 2);
+	if (has_colors() == FALSE)
+	{
+		endwin();
+		write(1, "Your terminal does not support color\n", 37);
+		return (0);
+	}
+	start_color();
+	init_color(COLOR_WHITE, 933, 894, 855);
+	init_color(COLOR_GREEN, 467, 431, 396);
+	init_pair(1, COLOR_BLACK, COLOR_WHITE);
+	wbkgd(stdscr, COLOR_PAIR(1));
+	init_pair(2, COLOR_WHITE, COLOR_GREEN);
+	attron(COLOR_PAIR(2));
+	border(' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+	mvvline(1, columns / 4, ' ', lines - 2);
+	mvvline(1, (2 * columns) / 4, ' ', lines - 2);
+	mvvline(1, (3 * columns) / 4, ' ', lines - 2);
+	mvhline(lines / 4, 1, ' ', columns - 2);
+	mvhline((2 * lines) / 4, 1, ' ', columns - 2);
+	mvhline((3 * lines) / 4, 1, ' ', columns - 2);
+	attroff(COLOR_PAIR(2));
 	print_map(lines, columns, map);
 	refresh();
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: ncolliau <ncolliau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/25 14:05:47 by mbryan            #+#    #+#             */
-/*   Updated: 2015/03/01 17:17:43 by ncolliau         ###   ########.fr       */
+/*   Updated: 2015/05/25 13:02:34 by ncolliau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static t_case	**add_random_num(t_case **map)
 	int		pos;
 	int		new_num;
 
+	pos = rand_a_b(0, 16);
 	while (map[pos / 4][pos % 4].val != 0)
 		pos = rand_a_b(0, 16);
 	new_num = rand_a_b(1, 5);
